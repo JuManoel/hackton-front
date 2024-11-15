@@ -1,30 +1,8 @@
 import streamlit as st
-import streamlit.components.v1 as components
 from components.chat import render_chat_messages
 from components.audio_handler import handle_audio_input
 from services.backend_service import iniciar_conversacion
 from utils import css
-
-def custom_video(video_path, key):
-    components.html(
-        f"""
-        <video id="myVideo" width="100%" controls autoplay>
-            <source src="{video_path}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <script>
-            var video = document.getElementById('myVideo');
-            video.onended = function() {{
-                window.parent.postMessage({{
-                    type: "streamlit:setComponentValue",
-                    value: true
-                }}, "*");
-            }};
-        </script>
-        """,
-        height=300,
-        key=key
-    )
 
 st.title("minstra")
 
@@ -38,9 +16,8 @@ if "messages" not in st.session_state:
 if "video" not in st.session_state:
     st.session_state.video = None
 
-if "idle_video" not in st.session_state:
-    with open("./testVideo/idle_avatar.mp4", "rb") as file:
-        st.session_state.idle_video = file.read()
+if "audio" not in st.session_state:
+    st.session_state.audio = None
 
 css.inyeccion_css()
 
@@ -68,11 +45,7 @@ else:
         handle_audio_input(audio_value)
 
     with col2:
-        # Video
-        if st.session_state.video:
-            video_ended = custom_video(st.session_state.video, key="video_player")
-            if video_ended:
-                st.session_state.video = None
-                st.rerun()
-        else:
-            st.video(st.session_state.idle_video, format="video/mp4", start_time=0, autoplay=True, loop=True)
+        # Video de ejemplo
+        st.video("testVideo/idle_or.mp4", format="video/mp4", start_time=0, loop=True, autoplay=True)
+        if st.session_state.audio:
+            st.audio(st.session_state.audio, format='audio/mp3', start_time=0, autoplay=True)
