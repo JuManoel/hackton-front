@@ -16,6 +16,9 @@ if "messages" not in st.session_state:
 if "video" not in st.session_state:
     st.session_state.video = None
 
+if "audio" not in st.session_state:
+    st.session_state.audio = None
+
 css.inyeccion_css()
 
 def initiate_dialogue():
@@ -43,4 +46,6 @@ else:
 
     with col2:
         # Video de ejemplo
-        st.video(st.session_state.video, format="video/mp4", start_time=0, autoplay=True)
+        st.video("testVideo/idle_or.mp4", format="video/mp4", start_time=0, loop=True, autoplay=True)
+        if st.session_state.audio:
+            st.audio(st.session_state.audio, format='audio/mp3', start_time=0, autoplay=True)
