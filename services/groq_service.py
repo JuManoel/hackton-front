@@ -1,11 +1,10 @@
 import os
 from groq import Groq
-from dotenv import load_dotenv
 import streamlit as st
 
-load_dotenv()
+api_key_groq = st.secrets["API_KEY_GROQ"]
 
-client = Groq(api_key=os.getenv("API_KEY_GROQ"))
+client = Groq(api_key=api_key_groq)
 
 def transcribir_audio(audio_value):
     try:
