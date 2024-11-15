@@ -21,3 +21,11 @@ def send_prompt(data):
     except requests.exceptions.RequestException as e:
         st.error("Error al enviar el mensaje")
         return None
+
+def end_talk(id):
+    try:
+        data = analizeMessage(id)
+        return data
+    except requests.exceptions.RequestException as e:
+        st.error("Error al terminar la llamada")
+        return None

@@ -6,6 +6,7 @@ from services import backend_service
 from services import did_service
 from gtts import gTTS
 import os
+from utils.end_call import end_call
 
 def handle_audio_input(audio_value):
     """Procesa la entrada de audio, genera una transcripción y una respuesta."""
@@ -27,10 +28,11 @@ def handle_audio_input(audio_value):
 
         # Generar una respuesta (aquí solo se devuelve un eco de la entrada del usuario)
         response = backend_service.send_prompt(data)
+        if response.get("close"):
+            end_call(st.session_state.session)
 
-
-        url_video = did_service.generar_video(response.get("content"))
-        st.session_state.video = url_video
+        # url_video = did_service.generar_video(response.get("content"))
+        # st.session_state.video = url_video
 
 
         # Mostrar respuesta del asistente en el contenedor de mensajes
