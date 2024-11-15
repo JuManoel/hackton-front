@@ -29,9 +29,7 @@ def generar_video(contenido):
                 response.raise_for_status()
                 id = response.json().get("id")
                 video = requests.get(f"{url}/{id}", headers=headers)
-                print(video.json())
                 url_video = video.json().get("result_url")
-                print(url_video)
                 return url_video
             except requests.exceptions.RequestException as e:
                 st.error(f"Ocurrió un error: {str(e)}")
