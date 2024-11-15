@@ -23,6 +23,7 @@ css.inyeccion_css()
 
 def initiate_dialogue():
     session = iniciar_conversacion()
+    print(session)
     if session:
         st.session_state.messages.append({"role": "assistant", "content": session.get("content")})
         st.session_state.session = session.get("newCallId")
