@@ -4,3 +4,4 @@ requests
 pymongo
 regex
 mistralai
+gTTS
